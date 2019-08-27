@@ -1,21 +1,22 @@
 const osmosis = require("osmosis");
+const atob = require('atob');
 const fs = require('file-system');
 
-const baseUrl = '1566941652965';
-const searchParam = '1566941680530';
+const base = 'aHR0cHM6Ly9lYmF5LmNvbS9zY2gvaS5odG1s';
+const par = 'P19ua3c9';
 const testSearchTerm = 'xbox+360+console';
 
 const date = Date.now();
 
-let testUrl = baseUrl + searchParam + testSearchTerm;
+let prodSearchUrl = atob(base) + atob(par) + testSearchTerm;
 
-function topFreeApps() {
+function prodSearch() {
     return new Promise((resolve, reject) => {
         let list = [];
 
         osmosis
         // Scrape top free apps
-            .get(testUrl)
+            .get(prodSearchUrl)
             // All apps exist inside of a div with class card-content
             .find('.s-item__wrapper')
             // Create an object of data
@@ -33,7 +34,7 @@ function topFreeApps() {
     });
 }
 
-topFreeApps().then(list => {
+prodSearch().then(list => {
     fs.writeFile(`./data/market/${date}/data.json`, JSON.stringify(list), (err) => {
         console.log(list);
     });

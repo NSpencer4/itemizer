@@ -2,15 +2,20 @@ const osmosis = require("osmosis");
 const atob = require('atob');
 const fs = require('file-system');
 
-const base = 'aHR0cHM6Ly9lYmF5LmNvbS9zY2gvaS5odG1s';
-const par = 'P19ua3c9';
+const base = atob('aHR0cHM6Ly9lYmF5LmNvbS9zY2gvaS5odG1s');
+const par = atob('P19ua3c9');
+
+// Replacements
+const sponPromo = atob('U1BPTlNPUkVE');
+const newListPromo = atob('U1BPTlNPUkVE');
+
 const testSearchTerm = 'xbox+360+console';
 
 const date = Date.now();
 
-let prodSearchUrl = atob(base) + atob(par) + testSearchTerm;
+let prodSearchUrl = base + par + testSearchTerm;
 
-function prodSearch() {
+function fetchProdData() {
     return new Promise((resolve, reject) => {
         let list = [];
 
@@ -27,15 +32,24 @@ function prodSearch() {
             })
             .data(data => {
                 // Each iteration, push the data into our array
-                list.push(data);
+                list.push(scrubData(data));
             })
             .error(err => reject(err))
             .done(() => resolve(list));
     });
 }
 
-prodSearch().then(list => {
+fetchProdData().then(list => {
     fs.writeFile(`./data/market/${date}/data.json`, JSON.stringify(list), (err) => {
-        console.log(list);
+        // console.log(list);
     });
 });
+
+function scrubData(data) {
+    data.title = data.title.replace(sponPromo, '');
+    data.title = data.title.replace(newListPromo, '');
+    data.link = data.link.substring(0, data.link.indexOf('?'));
+    data.price = data.price.replace('$', '');
+    data.price = parseFloat(data.price);
+    return data;
+}

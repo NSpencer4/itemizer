@@ -1,9 +1,11 @@
 const osmosis = require("osmosis");
 const fs = require('file-system');
 
-const baseUrl = 'https://ebay.com/sch/i.html';
-const searchParam = '?_nkw=';
+const baseUrl = '1566941652965';
+const searchParam = '1566941680530';
 const testSearchTerm = 'xbox+360+console';
+
+const date = Date.now();
 
 let testUrl = baseUrl + searchParam + testSearchTerm;
 
@@ -32,7 +34,7 @@ function topFreeApps() {
 }
 
 topFreeApps().then(list => {
-    fs.writeFile('./data/data.json', JSON.stringify(list), (err) => {
+    fs.writeFile(`./data/market/${date}/data.json`, JSON.stringify(list), (err) => {
         console.log(list);
     });
 });

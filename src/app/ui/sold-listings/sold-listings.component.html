@@ -1,0 +1,21 @@
+<h1>Active Listings</h1>
+
+<ng-container *ngIf="soldListings">
+  <table matSort (matSortChange)="sortData($event)">
+    <tr>
+      <th mat-sort-header="Title">Title</th>
+      <th mat-sort-header="Condition">Condition</th>
+      <th mat-sort-header="Price">Price</th>
+      <th mat-sort-header="Sold Date">Sold Date</th>
+      <th mat-sort-header="Link">Link</th>
+    </tr>
+
+    <tr *ngFor="let listing of soldListings">
+      <td>{{listing.title}}</td>
+      <td>{{listing.condition}}</td>
+      <td>{{listing.price}}</td>
+      <td>{{listing.soldDate}}</td>
+      <td>{{listing.link}}</td>
+    </tr>
+  </table>
+</ng-container>

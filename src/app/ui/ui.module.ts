@@ -9,6 +9,7 @@ import { LoadingSpinnerComponent } from './loading-spinner/loading-spinner.compo
 import {MatSortModule, MatTableModule} from "@angular/material";
 import {BrowserAnimationsModule} from "@angular/platform-browser/animations";
 import {ActiveListingsComponent} from "./active-listings/active-listings.component";
+import {SoldListingsComponent} from "./sold-listings/sold-listings.component";
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import {ActiveListingsComponent} from "./active-listings/active-listings.compone
     HomePageComponent,
     MainNavComponent,
     LoadingSpinnerComponent,
-    ActiveListingsComponent
+    ActiveListingsComponent,
+    SoldListingsComponent
   ],
   exports: [
     MainNavComponent,
